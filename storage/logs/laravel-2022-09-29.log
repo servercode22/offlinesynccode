@@ -1,0 +1,1 @@
+[2022-09-29 14:58:34] local.EMERGENCY: File:C:\xampp\htdocs\onlylocalsycpos\vendor\laravel\framework\src\Illuminate\Database\Connection.phpLine:664Message:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ai_id' in 'order clause' (SQL: select * from `units` where `units`.`deleted_at` is null order by `ai_id` desc limit 1)  
