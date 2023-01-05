@@ -1,0 +1,103 @@
+
+<h3 class="text-center">
+    KOT
+</h3>
+
+<h5 class="text-center">Customer:{{$receipt_details->customer_name}}</h5>
+
+<h5 class="text-center">Date:{{$receipt_details->invoice_date}}</h5>
+<h5 class="text-center">	Invoice_No:{{$receipt_details->invoice_no}}</h5>
+        <!-- Table information-->
+        @if(!empty($receipt_details->table_label) || !empty($receipt_details->table))
+        
+            
+                @if(!empty($receipt_details->table_label))
+                <h5 class="text-center">
+                {!! $receipt_details->table_label !!}
+                @endif
+                {{$receipt_details->table}}
+
+                <!-- Waiter info -->
+            </h5>		        @endif
+
+<div style="margin:2%">
+    <hr>
+<table class="table table-responsive  table-striped ">
+
+
+    <thead>
+      <tr>
+        <th scope="rowspan"><input  checked="true"  class="kot_item_checkbox" id="products_check" type="checkbox" ></th>
+            <th scope="col">{{$receipt_details->table_product_label}}</th>
+            <th scope="col">{{$receipt_details->table_qty_label}}</th>
+
+        </tr>					
+    </thead>
+    <tbody id="ye">
+        @forelse($receipt_details->lines as $line)
+        @if(isset($h2))
+            <tr>
+              
+                <td >
+                
+                    {{$line['name']}} 
+               
+                
+                </td>
+                <td >{{$h2}} {{$line['units']}} </td>
+        
+            </tr>
+        @else
+            <tr>
+               <td><input checked="" class="custom_name" id="kot_item_checkbox_269" type="checkbox"   ></td> 
+                <td >
+                    {{$line['name']}} {{$line['product_variation']}} {{$line['variation']}} 
+                    @if(!empty($line['sub_sku'])), {{$line['sub_sku']}} @endif @if(!empty($line['brand'])), {{$line['brand']}} @endif @if(!empty($line['cat_code'])), {{$line['cat_code']}}@endif
+                    @if(!empty($line['product_custom_fields'])), {{$line['product_custom_fields']}} @endif
+                    @if(!empty($line['sell_line_note']))
+                    <br>
+                    <small>
+                        {{$line['sell_line_note']}}
+                    </small>
+                    @endif 
+                </td>
+                <td >{{$line['quantity']}} {{$line['units']}} </td>
+            </tr>
+            @if(!empty($line['modifiers']))
+            @foreach($line['modifiers'] as $modifier)
+                <tr>
+                    <td>
+                        {{$modifier['name']}} {{$modifier['variation']}} 
+                    </td>
+                </tr>
+            @endforeach
+        @endif
+        @endif
+
+
+        @empty
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
+
+</div>
+
+
+<script>
+        $('#products_check').on('click',function(){
+			
+            var checkAll = this.checked;
+            $(".custom_name").each(function(){
+            // $(this).attr("checked", true);
+            
+            this.checked=checkAll;
+});
+            
+    });
+
+
+</script>

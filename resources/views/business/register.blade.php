@@ -1,0 +1,25 @@
+@extends('layouts.auth2')
+@section('title', __('lang_v1.register'))
+
+@section('content')
+<div class="login-form col-md-12 col-xs-12 right-col-content-register">
+    
+    <h2 class=" text-white text-center" id="register_in_minutes" style="">@lang('business.register_and_get_started_in_minutes')</h2>
+    {!! Form::open(['url' => route('business.postRegister'), 'method' => 'post', 
+                            'id' => 'business_regiter','files' => true ]) !!}
+        {{-- @include('business.partials.register_form') --}}
+        @include('business.partials.register_with_key')
+        
+        {!! Form::hidden('package_id', $package_id); !!}
+    {!! Form::close() !!}
+</div>
+@stop
+@section('javascript')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#change_lang').change( function(){
+            window.location = "{{ route('business.getRegister') }}?lang=" + $(this).val();
+        });
+    })
+</script>
+@endsection
